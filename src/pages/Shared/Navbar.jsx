@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import Footer from './Footer';
+import { AuthContext } from '../../provider/AuthProvider';
 
 const Navbar = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        // Sign-out successful.
+        console.log('Sign-out successful');
+      }).catch((error) => {
+        // An error happened.
+        console.log(error.message);
+      });
+  }
+
+
   return (
     <>
       <div className="navbar my-container">
@@ -15,6 +30,7 @@ const Navbar = () => {
               <li><Link to='/'>Home</Link></li>
               <li><Link to='blog'>Blog</Link></li>
               <li><Link to='login'>Login</Link></li>
+              {user && <li><a>{user?.email}</a></li>}
             </ul>
           </div>
           <Link to='/' className="text-xl sm:text-3xl font-bold">RecipeRealm</Link>
@@ -23,7 +39,8 @@ const Navbar = () => {
           <ul className="menu menu-horizontal px-1">
             <li><Link to='/'>Home</Link></li>
             <li><Link to='blog'>Blog</Link></li>
-            <li><Link to='login'>Login</Link></li>
+            {user ? <li onClick={handleLogOut}>Logout</li> : <li><Link to='login'>Login</Link></li>}
+            {user && <li><a>{user?.email}</a></li>}
           </ul>
         </div>
       </div>
