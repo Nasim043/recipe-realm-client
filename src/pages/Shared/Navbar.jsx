@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import { AuthContext } from '../../provider/AuthProvider';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Navbar = () => {
+  const navigate = useNavigate()
   const { user, logOut } = useContext(AuthContext);
 
   const handleLogOut = () => {
@@ -13,6 +14,7 @@ const Navbar = () => {
       .then(() => {
         // Sign-out successful.
         toast.success('Log-out successful')
+        navigate('/login');
       }).catch((error) => {
         // An error happened.
         console.log(error.message);
@@ -32,7 +34,7 @@ const Navbar = () => {
               <li><Link to='/'>Home</Link></li>
               <li><Link to='blog'>Blog</Link></li>
               {user ? <li><a onClick={handleLogOut}>Logout</a></li> : <li><Link to='login'>Login</Link></li>}
-              {user && (<div className="tooltip" data-tip={user?.email}>
+              {user && (<div className="tooltip" data-tip={user?.displayName}>
                 <li> <a>{user?.email}</a></li>
               </div>)}
             </ul>
@@ -40,16 +42,16 @@ const Navbar = () => {
           <Link to='/' className="text-xl sm:text-3xl font-bold">RecipeRealm</Link>
         </div>
         <div className="navbar-end hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 lg:flex lg:items-center">
             <li><NavLink to='/' className={({ isActive }) =>
               isActive ? "btn btn-outline btn-primary capitalize" : "inactive-link"}>Home</NavLink></li>
             <li><NavLink to='blog' className={({ isActive }) =>
               isActive ? "btn btn-outline btn-primary capitalize" : "inactive-link"}>Blog</NavLink></li>
-            {user ? <li><a onClick={handleLogOut}>Logout</a></li> : 
-                  <li><NavLink to='login' className={({ isActive }) =>
-                      isActive ? "btn btn-outline btn-primary capitalize" : "inactive-link"}>Login</NavLink></li>}
-            {user && (<div className="tooltip" data-tip={user?.email}>
-              <li> <a>{user?.email}</a></li>
+            {user ? <li><a onClick={handleLogOut}>Logout</a></li> :
+              <li><NavLink to='login' className={({ isActive }) =>
+                isActive ? "btn btn-outline btn-primary capitalize" : "inactive-link"}>Login</NavLink></li>}
+            {user && (<div className="tooltip" data-tip={user?.displayName}>
+              <img src={user.photoURL ? user.photoURL : "https://i.ibb.co/6Y2xHC1/Fj-U2lkc-WYAg-NG6d.jpg"} alt={user?.displayName} className='w-14 h-14 rounded-full' />
             </div>)}
           </ul>
         </div>
