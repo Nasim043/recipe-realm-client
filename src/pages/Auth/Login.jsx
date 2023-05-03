@@ -9,6 +9,7 @@ const Login = () => {
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('')
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -21,7 +22,7 @@ const Login = () => {
         navigate('/')
       })
       .catch(error => {
-        console.log(error.message);
+        setError(error.message.split('/')[1].slice(0,-2));
       })
   }
 
@@ -40,13 +41,14 @@ const Login = () => {
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
-              <input type="email" value={email} onChange={handleEmail} placeholder="email" className="input input-bordered" required/>
+              <input type="email" value={email} onChange={handleEmail} placeholder="email" className="input input-bordered" required />
             </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Password</span>
               </label>
-              <input type="password" value={password} onChange={handlePassword} placeholder="password" className="input input-bordered" required/>
+              <input type="password" value={password} onChange={handlePassword} placeholder="password" className="input input-bordered" required />
+              {error && <span className='text-red-500 text-sm mt-1 error'>{error}</span>}
               <label className="label">
                 <p className='label-text-alt'>Don't have an account?  <Link to='../register' className="label-text-alt link link-hover">Register</Link></p>
               </label>
