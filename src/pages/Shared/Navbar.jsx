@@ -1,7 +1,9 @@
 import React, { useContext } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import Footer from './Footer';
 import { AuthContext } from '../../provider/AuthProvider';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -10,7 +12,7 @@ const Navbar = () => {
     logOut()
       .then(() => {
         // Sign-out successful.
-        console.log('Sign-out successful');
+        toast.success('Log-out successful')
       }).catch((error) => {
         // An error happened.
         console.log(error.message);
@@ -29,23 +31,32 @@ const Navbar = () => {
             <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
               <li><Link to='/'>Home</Link></li>
               <li><Link to='blog'>Blog</Link></li>
-              <li><Link to='login'>Login</Link></li>
-              {user && <li><a>{user?.email}</a></li>}
+              {user ? <li><a onClick={handleLogOut}>Logout</a></li> : <li><Link to='login'>Login</Link></li>}
+              {user && (<div className="tooltip" data-tip={user?.email}>
+                <li> <a>{user?.email}</a></li>
+              </div>)}
             </ul>
           </div>
           <Link to='/' className="text-xl sm:text-3xl font-bold">RecipeRealm</Link>
         </div>
         <div className="navbar-end hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
-            <li><Link to='/'>Home</Link></li>
-            <li><Link to='blog'>Blog</Link></li>
-            {user ? <li onClick={handleLogOut}>Logout</li> : <li><Link to='login'>Login</Link></li>}
-            {user && <li><a>{user?.email}</a></li>}
+            <li><NavLink to='/' className={({ isActive }) =>
+              isActive ? "btn btn-outline btn-primary capitalize" : "inactive-link"}>Home</NavLink></li>
+            <li><NavLink to='blog' className={({ isActive }) =>
+              isActive ? "btn btn-outline btn-primary capitalize" : "inactive-link"}>Blog</NavLink></li>
+            {user ? <li><a onClick={handleLogOut}>Logout</a></li> : 
+                  <li><NavLink to='login' className={({ isActive }) =>
+                      isActive ? "btn btn-outline btn-primary capitalize" : "inactive-link"}>Login</NavLink></li>}
+            {user && (<div className="tooltip" data-tip={user?.email}>
+              <li> <a>{user?.email}</a></li>
+            </div>)}
           </ul>
         </div>
-      </div>
+      </div >
       <Outlet></Outlet>
       <Footer></Footer>
+      <ToastContainer></ToastContainer>
     </>
   );
 };

@@ -1,10 +1,11 @@
 import React from 'react';
-import { createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Blog from '../pages/Blog/Blog'
 import Navbar from '../pages/Shared/Navbar';
 import ErrorPage from '../pages/Shared/ErrorPage';
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
+import Home from '../pages/Home/Home';
 
 const router = createBrowserRouter([
   {
@@ -13,16 +14,20 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
+        path: '/',
+        element: <Home></Home>,
+      },
+      {
         path: 'blog',
         element: <Blog></Blog>
       },
       {
         path: 'login',
-        element: <Login></Login> 
+        element: <Login></Login>
       },
       {
         path: 'register',
-        element: <Register></Register> 
+        element: <Register></Register>
       },
     ]
 

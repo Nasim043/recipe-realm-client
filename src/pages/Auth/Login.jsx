@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
 import { AuthContext } from '../../provider/AuthProvider';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -10,15 +11,11 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log("Inside login");
-    console.log(email);
-    console.log(password);
 
     login(email, password)
       .then(result => {
-        const currentUser = result.user;
-        console.log(currentUser);
         e.target.reset();
+        toast.success('LogIn successful');
         <Navigate to='/'></Navigate>
       })
       .catch(error => {
