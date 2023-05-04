@@ -35,7 +35,7 @@ const Navbar = () => {
               <li><Link to='blog'>Blog</Link></li>
               {user ? <li><a onClick={handleLogOut}>Logout</a></li> : <li><Link to='login'>Login</Link></li>}
               {user && (<div className="tooltip" data-tip={user?.displayName}>
-                <li> <a>{user?.email}</a></li>
+                <li> <a>{user?.displayName}</a></li>
               </div>)}
             </ul>
           </div>
@@ -51,7 +51,7 @@ const Navbar = () => {
               <li><NavLink to='login' className={({ isActive }) =>
                 isActive ? "btn btn-outline btn-primary capitalize" : "inactive-link"}>Login</NavLink></li>}
             {user && (<div className="tooltip" data-tip={user?.displayName}>
-              <img src={user.photoURL ? user.photoURL : "https://i.ibb.co/6Y2xHC1/Fj-U2lkc-WYAg-NG6d.jpg"} alt={user?.displayName} className='w-14 h-14 rounded-full' />
+              <img src={user.photoURL ? user.photoURL : "https://i.ibb.co/6Y2xHC1/Fj-U2lkc-WYAg-NG6d.jpg"} alt={user?.displayName} className='w-12 h-12 rounded-full' />
             </div>)}
           </ul>
         </div>

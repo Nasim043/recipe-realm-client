@@ -2,7 +2,7 @@ import React from 'react';
 
 const Reviews = () => {
   return (
-    <div className='my-container'>
+    <div className='my-container mb-10'>
       <h1
         className="text-xl font-extrabold leading-9 tracking-tight mb-3 text-gray-900 sm:text-3xl sm:leading-10 md:text-5xl md:leading-normal text-center">
         Our Happy Clients Say

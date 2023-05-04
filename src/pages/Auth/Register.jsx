@@ -1,36 +1,50 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../provider/AuthProvider';
+import { FaGithub, FaGoogle } from 'react-icons/fa';
 
 const Register = () => {
   const navigate = useNavigate()
-  const { register, logOut, updateUserProfile } = useContext(AuthContext);
+  const { register, logOut, updateUserProfile, googleLogIn, githubLogIn } = useContext(AuthContext);
   const [name, setName] = useState('');
   const [url, setUrl] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setemailError] = useState('');
   const [password, setPassword] = useState('');
   const [passwordError, setpasswordError] = useState('')
+  const [authError, setAuthError] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Inside register");
-    console.log(email);
-    console.log(password);
 
     register(email, password)
       .then(result => {
         updateUserProfile(name, url)
-          .then(result=>{
+          .then(result => {
             handleLogOut();
           })
-          .catch(error => console.log(error))
+          .catch(error => console.log(error.message))
       })
       .catch(error => {
-        console.log(error.message);
+        setAuthError(error.message.split('/')[1].slice(0, -2));
       })
   }
-
+  // google
+  const handleGoogleAuth = () => {
+    googleLogIn()
+      .then(result => {
+        handleLogOut();
+      })
+      .catch(error => setAuthError(error.message.split('/')[1].slice(0, -2)))
+  }
+  // github
+  const handleGithubAuth = () => {
+    githubLogIn()
+      .then(result => {
+        handleLogOut();
+      })
+      .catch(error => setAuthError(error.message.split('/')[1].slice(0, -2)))
+  }
   const handleLogOut = () => {
     logOut()
       .then(() => {
@@ -74,6 +88,7 @@ const Register = () => {
     <div className="my-container">
       <div className="card w-11/12 sm:w-4/5 max-w-xl mx-auto shadow-2xl bg-base-100">
         <div className="card-body">
+          {authError && <span className='text-red-500 text-sm mt-1 error'>{authError}</span>}
           <form onSubmit={handleSubmit}>
             <div className="form-control">
               <label className="label">
@@ -108,6 +123,10 @@ const Register = () => {
               <button className="btn btn-primary">Register</button>
             </div>
           </form>
+          <div className="form-control mt-6">
+            <button className="btn btn-outline btn-primary mb-2" onClick={handleGoogleAuth}><FaGoogle className='me-2'></FaGoogle> Register with Google</button>
+            <button className="btn btn-outline" onClick={handleGithubAuth}><FaGithub className='me-2'></FaGithub> Register with Github</button>
+          </div>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const { login } = useContext(AuthContext);
+  const { login, googleLogIn, githubLogIn } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('')
@@ -26,6 +26,28 @@ const Login = () => {
       .catch(error => {
         setError(error.message.split('/')[1].slice(0, -2));
       })
+  }
+
+  // google
+  const handleGoogleAuth = () => {
+    googleLogIn()
+      .then(result => {
+        console.log(result.user);
+        toast.success('LogIn successful');
+        navigate(from, { replace: true })
+      })
+      .catch(error => console.log(error.message))
+  }
+
+  // github
+  const handleGithubAuth = () => {
+    githubLogIn()
+      .then(result => {
+        console.log(result.user);
+        toast.success('LogIn successful');
+        navigate(from, { replace: true })
+      })
+      .catch(error => console.log(error.message))
   }
 
   const handleEmail = (e) => {
@@ -60,8 +82,8 @@ const Login = () => {
             </div>
           </form>
           <div className="form-control mt-6">
-            <button className="btn btn-outline btn-primary mb-2"><FaGoogle className='me-2'></FaGoogle> Login with Google</button>
-            <button className="btn btn-outline"><FaGithub className='me-2'></FaGithub> Login with Github</button>
+            <button className="btn btn-outline btn-primary mb-2" onClick={handleGoogleAuth}><FaGoogle className='me-2'></FaGoogle> Login with Google</button>
+            <button className="btn btn-outline" onClick={handleGithubAuth}><FaGithub className='me-2'></FaGithub> Login with Github</button>
           </div>
         </div>
       </div>
