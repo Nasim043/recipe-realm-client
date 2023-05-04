@@ -1,14 +1,15 @@
 import React from 'react';
 import { FaRegEye } from 'react-icons/fa';
+import LazyLoad from 'react-lazy-load';
 import { Link } from 'react-router-dom';
 
 const Chef = ({ chef }) => {
   const { chef_id, chef_name, num_of_recipes, likes, years_of_experience, chef_picture } = chef;
   return (
     <div className="card card-compact w-full bg-base-100 shadow-xl">
-      <figure>
-        <img className='object-cover w-full h-[50vh]' src={chef_picture} alt={chef_name} />
-      </figure>
+      <LazyLoad height={'max-height: 50vh'}>
+        <img className='object-cover w-full max-h-[50vh]' src={chef_picture} alt={chef_name} />
+      </LazyLoad>
       <div className="card-body">
         <h2 className="font-semibold text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out">{chef_name}</h2>
         <p className="text-gray-500 text-sm">{years_of_experience} years of experienc</p>

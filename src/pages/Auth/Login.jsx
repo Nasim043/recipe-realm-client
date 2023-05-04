@@ -1,15 +1,17 @@
 import React, { useContext, useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
 import { AuthContext } from '../../provider/AuthProvider';
 import { toast } from 'react-toastify';
 
 const Login = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('')
+  const from = location.state?.from?.pathname || '/'
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -19,10 +21,10 @@ const Login = () => {
         e.target.reset();
         console.log(result.user);
         toast.success('LogIn successful');
-        navigate('/')
+        navigate(from, { replace: true })
       })
       .catch(error => {
-        setError(error.message.split('/')[1].slice(0,-2));
+        setError(error.message.split('/')[1].slice(0, -2));
       })
   }
 

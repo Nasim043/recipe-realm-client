@@ -1,11 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <section className="my-container text-gray-600 body-font bg-gray-100 p-20 rounded-2xl">
-      <div className="mx-auto flex md:px-24 md:py-10 md:flex-row flex-col items-center">
+      <div className="mx-auto flex flex-col md:flex-row justify-between items-center">
         <div
-          className="lg:flex-grow mt-5 md:mt-0   md:w-1.5/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+          className="md:w-1/2 md:px-2 mb-10 md:mb-0">
           <h1
             className="text-2xl font-extrabold leading-9 tracking-tight mb-3 text-gray-900 sm:text-4xl sm:leading-10 md:text-5xl md:leading-normal">
             Lets start cooking with popular recipes
@@ -19,14 +20,14 @@ const Header = () => {
               className="inline-flex text-white bg-emerald-600 border-0 py-2 px-6 focus:outline-none hover:bg-emerald-600 rounded text-lg">Start
               Exploring
             </a>
-            <a href="#"
+            <Link to='/blog'
               className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">Read
-              articles</a>
+              articles</Link>
           </div>
         </div>
-        <div className="lg:max-w-lg lg:w-full mb-5 md:mb-0 md:w-1/2 w-3/6">
+        <div className="md:w-1/2">
           {/* <img className="object-cover object-center rounded" alt="hero" src="https://www.svgrepo.com/show/490900/hot-air-balloon.svg" /> */}
-          <img className="object-cover object-center rounded" alt="hero" src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" />
+          <img className="w-full rounded-xl" alt="header" src="https://images.unsplash.com/photo-1543339308-43e59d6b73a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" />
         </div>
       </div>
     </section>

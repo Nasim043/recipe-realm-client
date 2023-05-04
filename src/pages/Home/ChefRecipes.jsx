@@ -1,8 +1,7 @@
-import { Rating } from '@smastrom/react-rating';
-import React, { useEffect, useState } from 'react';
-import { FaRegHeart } from 'react-icons/fa';
+import React, { useEffect, useState } from 'react';;
 import { useLoaderData, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import RecipeDetails from './RecipeDetails';
 
 
 const ChefRecipes = () => {
@@ -10,18 +9,13 @@ const ChefRecipes = () => {
   const chefRecipe = useLoaderData()
   const { id } = useParams();
 
-  const handleClick = event => {
-    event.currentTarget.disabled = true;
-    toast.success('Successfully added to favourites')
-  };
-
   useEffect(() => {
     fetch('http://localhost:3000/chefs')
       .then((result) => result.json())
       .then((data) => {
         setChef(data.filter(chef => chef.chef_id === parseInt(id)))
       })
-      .catch(error => console.log(error))
+      .catch(error => console.error(error))
   }, [])
 
   return (
@@ -45,33 +39,13 @@ const ChefRecipes = () => {
             </header>
           </div>
         </div>
-        <img src={chef[0]?.chef_picture} alt={chef[0]?.chef_name} class="w-full h-[70vh] object-cover sm:h-[70vh] sm:w-4/12" />
+        <img src={chef[0]?.chef_picture} alt={chef[0]?.chef_name} className="w-full max-h-[70vh] object-cover sm:w-4/12" />
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
         {
-          chefRecipe?.map(recipe => {
-            return (
-              <div className="card w-full bg-[#E9E9E9] shadow-xl">
-                <div className="card-body">
-                  <h2 className="card-title">{recipe.recipe_name}</h2>
-                  <p>{recipe.ingredients?.map((ingredient, index) => {
-                    return (
-                      <span className='me-1' key={index}>{ingredient},</span>
-                    )
-                  })}</p>
-                  <p>{recipe.cooking_method}</p>
-                  <div className='flex justify-start items-center'>
-                    <Rating style={{ maxWidth: 100 }} readOnly value={recipe.rating} className='me-1' />
-                    <p className='pt-1'>{recipe.rating}</p>
-                  </div>
-                  <div className="form-control">
-                    <button className="btn my-gradient text-white font-semibold px-6 py-3 rounded-md mt-4 capitalize border-0" onClick={handleClick}>
-                      <FaRegHeart className='me-2'></FaRegHeart> favourite</button>
-                  </div>
-                </div>
-              </div>
-            )
-          })
+          chefRecipe?.map((recipe, index) => (
+            <RecipeDetails key={index} recipe={recipe}></RecipeDetails>
+          ))
         }
       </div>
     </div>
