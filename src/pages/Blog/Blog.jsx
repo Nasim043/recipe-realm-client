@@ -6,14 +6,14 @@ import ReactToPdf from 'react-to-pdf'
 const Blog = () => {
   return (
     <>
-      <div className='max-w-7xl mx-auto flex justify-end'>
+      <div className='max-w-7xl mx-auto flex justify-end px-4 sm:px-4'>
         <ReactToPdf targetRef={ref} filename="blog.pdf" x={.5} y={.5} scale={0.6}>
           {({ toPdf }) => (
             <button className='btn my-gradient text-white font-semibold px-6 py-3 rounded-md mt-4 capitalize border-0' onClick={toPdf}><FaPrint className='me-1'></FaPrint> Generate pdf</button>
           )}
         </ReactToPdf>
       </div>
-      <div className='mb-6'>
+      <div className='mb-10 px-4 sm:px-4'>
         <main className="w-full max-w-7xl mx-auto mt-8" ref={ref}>
           <div className="text-lg sm:text-xl font-medium bg-sky-100 p-2 rounded-md mb-2">
             1. What is the differences between uncontrolled and controlled components?

@@ -6,7 +6,7 @@ const PopularRecipes = () => {
   const [popularRecipe, setPopularRecipe] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:3000/popular')
+    fetch('https://b7a10-chef-recipe-hunter-server-side-nasim043-nasim043.vercel.app/popular')
       .then((result) => result.json())
       .then((data) => setPopularRecipe(data))
       .catch(error => console.log(error))

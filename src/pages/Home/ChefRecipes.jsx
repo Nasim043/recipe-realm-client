@@ -10,7 +10,7 @@ const ChefRecipes = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch('http://localhost:3000/chefs')
+    fetch('https://b7a10-chef-recipe-hunter-server-side-nasim043-nasim043.vercel.app/chefs')
       .then((result) => result.json())
       .then((data) => {
         setChef(data.filter(chef => chef.chef_id === parseInt(id)))
@@ -41,7 +41,7 @@ const ChefRecipes = () => {
         </div>
         <img src={chef[0]?.chef_picture} alt={chef[0]?.chef_name} className="w-full max-h-[70vh] object-cover sm:w-4/12" />
       </div>
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7'>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mb-10'>
         {
           chefRecipe?.map((recipe, index) => (
             <RecipeDetails key={index} recipe={recipe}></RecipeDetails>

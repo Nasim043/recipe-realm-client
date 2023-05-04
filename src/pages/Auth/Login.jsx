@@ -58,7 +58,7 @@ const Login = () => {
   }
   return (
     <div className="my-container">
-      <div className="card w-11/12 sm:w-4/5 max-w-xl mx-auto shadow-2xl bg-base-100">
+      <div className="card w-11/12 sm:w-4/5 max-w-xl mx-auto shadow-2xl bg-base-100 mb-10">
         <div className="card-body">
           <form onSubmit={handleLogin}>
             <div className="form-control">

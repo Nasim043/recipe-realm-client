@@ -12,7 +12,7 @@ const Chef = ({ chef }) => {
       </LazyLoad>
       <div className="card-body">
         <h2 className="font-semibold text-lg inline-block hover:text-indigo-600 transition duration-500 ease-in-out">{chef_name}</h2>
-        <p className="text-gray-500 text-sm">{years_of_experience} years of experienc</p>
+        <p className="text-gray-500 text-sm">{years_of_experience} years of experience</p>
         <p className="text-gray-500 text-sm">{num_of_recipes} recipes</p>
         <p className="text-gray-500 text-sm">{likes} likes</p>
         <div className="card-actions justify-end">
